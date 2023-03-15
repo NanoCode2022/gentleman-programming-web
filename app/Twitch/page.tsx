@@ -1,5 +1,4 @@
 function Twitch() {
-  return <div>Youtube - 120</div>;
+  return <div>page</div>;
 }
-
 export default Twitch;
