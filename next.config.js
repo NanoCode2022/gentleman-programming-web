@@ -1,22 +1,39 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-<<<<<<< HEAD
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
     appDir: true,
   },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            svgoConfig: {
+              plugins: [
+                {
+                  name: 'preset-default',
+                  params: {
+                    overrides: {
+                      removeViewBox: false,
+                      mergePaths: false,
+                      convertShapeToPath: false,
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      ],
+    });
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
-=======
-     reactStrictMode: true,
-     experimental: {
-       appDir: true,
-     },
-   };
-   
-   module.exports = nextConfig;
-   
->>>>>>> 4d97be644e5b58ead7c19e854ef566dc78d2da3b
