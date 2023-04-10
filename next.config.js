@@ -34,6 +34,16 @@ const nextConfig = {
 
     return config;
   },
+  images:{
+    remotePatterns:[
+      {
+        protocol: 'https',
+        hostname: 'static-cdn.jtvnw.net',
+        port: '',
+        pathname: '/jtv_user_pictures/**',
+      }
+    ]
+  }
 };
 
 module.exports = nextConfig;
