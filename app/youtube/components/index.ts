@@ -1,8 +1,9 @@
 export * from './ChannelDetails/ChannelDetails';
-export * from './ChannelTabs/TabsBar';
+export * from './ChannelDetails/ChannelTabs/TabsBar';
 export * from './HeaderSearchbar/HeaderSearchbar';
+export * from './HeaderSearchbar/SearchIcon';
+export * from './Home/HomeSections/HomeSections';
 export { default as HomeYoutube } from './Home/HomeYoutube';
-export * from './Home/SearchIcon';
-export * from './Playlists/YTPlayslists';
-export * from './VideoCard/YTVideoCard';
+export * from './VideoCard/YTPlaylistVideoCard';
+export * from './VideoCard/YTVideoCard.old';
 export * from './index';
