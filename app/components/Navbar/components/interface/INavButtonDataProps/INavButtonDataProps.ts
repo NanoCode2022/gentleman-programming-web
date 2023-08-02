@@ -3,7 +3,7 @@ export interface INavButtonDataProps {
   description: string;
   toolTip: string;
   link: string;
-  isLive?: Promise<boolean | undefined>;
+  isLive?: boolean | undefined;
   img: string;
   mentions?: number;
 }

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { Event } from '../models';
 
 export const getCalendar = (): Promise<Event> => {
@@ -15,26 +17,56 @@ export const getCalendar = (): Promise<Event> => {
 };
 // gen 70731924
 // 597030912
-const channelName = 'gentleman_programming';
-export async function getChannelStatus() {
-  const response = await fetch(
-    `https://api.twitch.tv/helix/streams?user_login=${channelName}`,
-    {
-      headers: {
-        'Client-ID': 'f739kt1comvh9brrxunnf8chjxe3jo',
-        Authorization: 'Bearer qxsoqt7ov1jl5hhe3wrqrejzg7hpdx', // Agrega aquí tu token de acceso si necesitas uno
-      },
-    }
-  );
 
-  if (response.ok) {
-    const data = await response.json();
-    if (data.data.length > 0) {
-      return { live: true };
+export async function getChannelStatus() {
+  const channelName = 'gentleman_programming';
+  const url = `https://api.twitch.tv/helix/streams?user_login=${channelName}`;
+
+  const headers = {
+    'Client-ID': 'f739kt1comvh9brrxunnf8chjxe3jo',
+    Authorization: 'Bearer qxsoqt7ov1jl5hhe3wrqrejzg7hpdx', // Agrega aquí tu token de acceso si necesitas uno
+  };
+
+  try {
+    const response = await axios.get(url, { headers });
+
+    if (response.status === 200) {
+      const data = response.data;
+
+      if (data.data.length > 0) {
+        return { live: true };
+      } else {
+        return { live: false };
+      }
     } else {
+      console.log({ error: 'Error al obtener el estado del canal.' });
       return { live: false };
     }
-  } else {
-    console.log({ error: 'Error al obtener el estado del canal.' });
+  } catch (error) {
+    console.error('Error al obtener el estado del canal:', error);
+    return { live: false };
   }
 }
+// export async function getChannelStatus() {
+//   const channelName = 'gentleman_programming';
+//   const response = await fetch(
+//     `https://api.twitch.tv/helix/streams?user_login=${channelName}`,
+//     {
+//       headers: {
+//         'Client-ID': 'f739kt1comvh9brrxunnf8chjxe3jo',
+//         Authorization: 'Bearer qxsoqt7ov1jl5hhe3wrqrejzg7hpdx', // Agrega aquí tu token de acceso si necesitas uno
+//       },
+//     }
+//   );
+//   if (response.ok) {
+//     const data = await response.json();
+//     console.log(data);
+//     if (data.data.length > 0) {
+//       return { live: true };
+//     } else {
+//       return { live: false };
+//     }
+//   } else {
+//     console.log({ error: 'Error al obtener el estado del canal.' });
+//   }
+// }

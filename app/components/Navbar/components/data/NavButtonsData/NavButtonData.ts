@@ -1,9 +1,22 @@
 import { getChannelStatus } from '@app/twitch/services';
 
+export async function updateNavButtonsData() {
+  try {
+    const status = await getChannelStatus();
+    console.log({ status });
+    const updatedNavButtonsData = NavButtonsData.map((buttonData) => {
+      if (buttonData.id === '2') {
+        return { ...buttonData, isLive: status?.live }; // Actualizamos solo el objeto con id '2'
+      }
+      return buttonData; // Mantenemos los demás objetos sin cambios
+    });
+    return updatedNavButtonsData;
+  } catch (error) {
+    console.error('Error al actualizar el estado del canal:', error);
+    return NavButtonsData; // Si hay un error, devolvemos el array sin cambios
+  }
+}
 import { INavButtonDataProps } from '../../interface';
-const live: Promise<boolean | undefined> = getChannelStatus().then(
-  (status) => status?.live
-);
 export const NavButtonsData: INavButtonDataProps[] = [
   { id: '1', description: '', toolTip: 'Home', link: '/', img: 'Home' },
   {
@@ -11,7 +24,7 @@ export const NavButtonsData: INavButtonDataProps[] = [
     description: 'twitch',
     toolTip: 'Twitch',
     link: '/twitch',
-    isLive: live,
+    isLive: false,
     img: 'Twitch',
   },
   {
